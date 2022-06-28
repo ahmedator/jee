@@ -4,6 +4,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,16 +15,20 @@ public class BoxerBean {
     @Inject
     private BoxerDao boxerDao;
 
+    @Transactional
     public List<Boxer> getBoxers(){ return boxerDao.getAllBoxers(); }
 
+    @Transactional
     public Boxer getBoxerByFirstName(String firstName){ return boxerDao.getBoxerByName(firstName); }
 
+    @Transactional
     public void addNewBoxer(Boxer boxer){
         boxerDao.addBoxer(boxer);
     }
 
-    public void deleteBoxer(UUID uuid){
-        boxerDao.deleteBoxer(uuid);
+    @Transactional
+    public boolean deleteBoxer(UUID uuid){
+        return boxerDao.deleteBoxer(uuid);
     }
 
 }

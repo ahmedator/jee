@@ -29,9 +29,9 @@ public class BoxerController {
         return Response.ok(boxerBean.getBoxerByFirstName(firstName)).build();
     }
 
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
     @Path("/addNewBoxer")
     public Response addNewBoxer(String lastName, String firstName) {
         if (nonNull(lastName) && nonNull(firstName)) {
@@ -41,17 +41,19 @@ public class BoxerController {
                     .lastName(lastName)
                     .build());
 
-            return Response.ok(200).build();
+            return Response.ok(boxerBean.getBoxers().size()).build();
         } else {
-            return Response.status(403).build();
+            return Response.ok("double element !").build();
         }
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteBoxer(@PathParam("id") UUID id) {
-        boxerBean.deleteBoxer(id);
-        return Response.status(Response.Status.NO_CONTENT).build();
+        if(boxerBean.deleteBoxer(id)) {
+            return Response.ok(boxerBean.getBoxers().size()).build();
+        }
+        return Response.ok("no exist element !").build();
     }
 
 

@@ -18,7 +18,7 @@ public class FightDao {
     UserTransaction userTransaction;
 
     public List<Fight> getAllFight() {
-        return entityManager.createQuery("" +
+        return entityManager.createQuery(
                 "SELECT fight " +
                 "FROM Fight fight ", Fight.class).getResultList();
     }
