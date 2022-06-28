@@ -22,29 +22,18 @@ public class BoxerController {
         return Response.ok(boxerBean.getBoxers()).build();
     }
 
+    @POST
+    @Path("/addNewBoxer")
+    public Response addNewBoxer(Boxer boxer) {
+        boxerBean.addNewBoxer(boxer);
+        return Response.ok("Success 200").build();
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/boxer")
     public Response getBoxer(String firstName) {
         return Response.ok(boxerBean.getBoxerByFirstName(firstName)).build();
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    @Path("/addNewBoxer")
-    public Response addNewBoxer(String lastName, String firstName) {
-        if (nonNull(lastName) && nonNull(firstName)) {
-
-            boxerBean.addNewBoxer(Boxer.builder()
-                    .firstName(firstName)
-                    .lastName(lastName)
-                    .build());
-
-            return Response.ok(boxerBean.getBoxers().size()).build();
-        } else {
-            return Response.ok("double element !").build();
-        }
     }
 
     @DELETE

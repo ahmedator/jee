@@ -19,9 +19,9 @@ public class Fight {
 
     @Id
     public UUID uuid_fight = randomUUID();
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Boxer firstFighter;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Boxer secondFighter;
     private String place;
     private String result;

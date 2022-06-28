@@ -24,26 +24,9 @@ public class FightController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/addNewFight")
-    public Response addNewFight(Boxer firstFighter, Boxer secondFighter, String place, String result) {
-        if (nonNull(firstFighter) && nonNull(secondFighter) && nonNull(place) && nonNull(result)) {
-
-            fightBean.addNewFight(Fight.builder()
-                    .firstFighter(Boxer.builder()
-                            .lastName(firstFighter.getLastName())
-                            .firstName(firstFighter.getFirstName())
-                            .build())
-                    .secondFighter(Boxer.builder()
-                            .lastName(secondFighter.getLastName())
-                            .firstName(secondFighter.getFirstName())
-                            .build())
-                    .place(place)
-                    .result(result)
-                    .build());
-
-            return Response.ok(200).build();
-        } else {
-            return Response.status(403).build();
-        }
+    public Response addNewFight(Fight fight) {
+        fightBean.addNewFight(fight);
+        return Response.ok(200).build();
     }
 
     @DELETE

@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import java.util.List;
 import java.util.UUID;
@@ -34,13 +35,7 @@ public class BoxerDao {
     }
 
     public void addBoxer(Boxer boxer) {
-        try {
-            userTransaction.begin();
             entityManager.persist(boxer);
-            userTransaction.commit();
-        } catch (Exception e) {
-            Logger.getGlobal().log(Level.SEVERE, "jpa error" + e.getMessage());
-        }
     }
 
     public boolean deleteBoxer(UUID uuid) {

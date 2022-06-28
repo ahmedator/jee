@@ -14,9 +14,6 @@ public class FightDao {
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Resource
-    UserTransaction userTransaction;
-
     public List<Fight> getAllFight() {
         return entityManager.createQuery(
                 "SELECT fight " +
@@ -24,13 +21,7 @@ public class FightDao {
     }
 
     public void addFight(Fight fight) {
-        try {
-            userTransaction.begin();
-            entityManager.persist(fight);
-            userTransaction.commit();
-        } catch (Exception e) {
-            Logger.getGlobal().log(Level.SEVERE, "jpa error" + e.getMessage());
-        }
+        entityManager.persist(fight);
     }
 
     public void deleteFight(UUID uuid){
