@@ -1,5 +1,7 @@
 package com.efficom.tpfinal;
 
+import javax.ejb.EJB;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -7,25 +9,34 @@ import java.util.UUID;
 
 import static java.util.Objects.nonNull;
 
+@Path("boxer")
 public class BoxerController {
 
-    BoxerDao boxerDao = new BoxerDao();
+    @Inject
+    private BoxerBean boxerBean;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/boxers")
-    public Response getCrewMember() {
-        return Response.ok(boxerDao.getAllBoxers()).build();
+    public Response getBoxers() {
+        return Response.ok(boxerBean.getBoxers()).build();
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/boxer")
+    public Response getBoxer(String firstName) {
+        return Response.ok(boxerBean.getBoxerByFirstName(firstName)).build();
+    }
+
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
     @Path("/addNewBoxer")
     public Response addNewBoxer(String lastName, String firstName) {
         if (nonNull(lastName) && nonNull(firstName)) {
 
-            boxerDao.addBoxer(Boxer.builder()
+            boxerBean.addNewBoxer(Boxer.builder()
                     .firstName(firstName)
                     .lastName(lastName)
                     .build());
@@ -39,7 +50,7 @@ public class BoxerController {
     @DELETE
     @Path("/{id}")
     public Response deleteBoxer(@PathParam("id") UUID id) {
-        boxerDao.deleteBoxer(id);
+        boxerBean.deleteBoxer(id);
         return Response.status(Response.Status.NO_CONTENT).build();
     }
 
