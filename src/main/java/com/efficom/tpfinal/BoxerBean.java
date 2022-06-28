@@ -27,8 +27,8 @@ public class BoxerBean {
     }
 
     @Transactional
-    public boolean deleteBoxer(UUID uuid){
-        return boxerDao.deleteBoxer(uuid);
+    public boolean deleteBoxer(long id){
+        return boxerDao.deleteBoxer(id);
     }
 
 }

@@ -38,12 +38,15 @@ public class BoxerDao {
             entityManager.persist(boxer);
     }
 
-    public boolean deleteBoxer(UUID uuid) {
+    public boolean deleteBoxer(long id) {
         try {
-            entityManager.createQuery("DELETE FROM Boxer boxer WHERE boxer.id = " + uuid).executeUpdate();
+            entityManager.createQuery("DELETE FROM Boxer boxer WHERE boxer.id = :id")
+                    .setParameter("id", id)
+                    .executeUpdate();
+
         } catch (Exception e) {
             return false;
         }
-        return false;
+        return true;
     }
 }

@@ -19,7 +19,7 @@ import static java.util.UUID.randomUUID;
 public class Boxer {
 
     @Id
-    private int id;
+    private long id;
     private String lastName;
     private String firstName;
 }

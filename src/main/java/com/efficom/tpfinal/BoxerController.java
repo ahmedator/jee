@@ -38,7 +38,7 @@ public class BoxerController {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteBoxer(@PathParam("id") UUID id) {
+    public Response deleteBoxer(@PathParam("id") long id) {
         if(boxerBean.deleteBoxer(id)) {
             return Response.ok(boxerBean.getBoxers().size()).build();
         }
